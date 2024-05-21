@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log/slog"
+	"strings"
 	"time"
 
 	_ "github.com/lib/pq"
@@ -28,9 +29,11 @@ func InitDB() (*DB, error) {
         postgresDb *sql.DB
         err error
     )
+    
+    connString := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname%s sslmode=disable") 
 
     for retries := 0; retries < maxRetry; retries++{
-        postgresDb, err = sql.Open("postgres", "")        
+        postgresDb, err = sql.Open("postgres", connString)        
         if err != nil{
             fmt.Println("Error while connecting to database: Retrying", retries )
             <-time.After(10 * time.Second)

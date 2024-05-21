@@ -31,7 +31,7 @@ func main(){
 
     sm := mux.NewRouter()
     routers := NewRouter(sm)
-    
+
     routers.Get.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         w.Header().Set("content-type", "application/json")
         w.WriteHeader(http.StatusOK)
